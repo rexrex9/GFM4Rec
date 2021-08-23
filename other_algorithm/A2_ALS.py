@@ -7,8 +7,8 @@ from other_algorithm import Zcommon
 class ALS (nn.Module):
     def __init__(self, n_users, n_items, dim):
         super(ALS, self).__init__()
-        self.users = nn.Embedding( n_users, dim,max_norm=1 )
-        self.items = nn.Embedding( n_items, dim,max_norm=1 )
+        self.users = nn.Embedding( n_users, dim,max_norm=1 ).to(Zcommon.device)
+        self.items = nn.Embedding( n_items, dim,max_norm=1 ).to(Zcommon.device)
 
 
     def forward(self, u, v):
