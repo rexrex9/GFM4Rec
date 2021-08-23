@@ -33,7 +33,7 @@ class GCN4Rec( torch.nn.Module ):
         return x[e]
 
     def forward( self, u, i ):
-        i_index = i.detach().numpy()
+        i_index = i.cpu().detach().numpy()
         i_edges = dataloader.graphSage4Rec(self.G, i_index)
 
         # [ batch_size, dim ]
