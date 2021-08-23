@@ -1,5 +1,5 @@
-from other_algorithm import D2_GAT4Rec
+from other_algorithm import D1_GCN4Rec
 
 
-
-D2_GAT4Rec.train('mlLatest')
+D1_GCN4Rec.train('ml1m',epochs=10,need_eva=False)
+D1_GCN4Rec.train('ml10m',epochs=10,need_eva=False)
