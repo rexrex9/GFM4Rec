@@ -15,7 +15,7 @@ class LR( nn.Module ):
         self.item_features = nn.Embedding(item_df.values.max() + 1, dim, max_norm=1)
 
     # forFMseries
-    def getAllFeatures(self, u, i):
+    def __getAllFeatures(self, u, i):
         item_feature_indexes = torch.LongTensor(self.item_df.loc[i.cpu()].values).to(Zcommon.device)
         user_feats = torch.unsqueeze(self.users(u), dim=1)
         item_feats = self.item_features(item_feature_indexes)
