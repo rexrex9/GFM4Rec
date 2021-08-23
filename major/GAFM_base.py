@@ -22,9 +22,6 @@ class GAFM_Base( torch.nn.Module ):
         self.a_liner = nn.Linear(k_dim, t_dim)
         self.h_liner = nn.Linear(t_dim, 1)
 
-        # self.w1_liner = nn.Linear(k_dim,t_dim)
-        # self.w2_liner = nn.Linear(t_dim, k_dim)
-
         self.G = G
 
 
@@ -57,7 +54,7 @@ class GAFM_Base( torch.nn.Module ):
     def __getEmbeddingByNeibourIndex( self, orginal_indexes, nbIndexs, aggEmbeddings ):
         new_embs = []
         for v in orginal_indexes:
-            embs = aggEmbeddings[ torch.squeeze( torch.LongTensor( nbIndexs.loc[v].values ) ) ]
+            embs = aggEmbeddings[ torch.squeeze( torch.LongTensor( nbIndexs.loc[v].values ).to(Zcommon.device) ) ]
             new_embs.append( torch.unsqueeze( embs, dim = 0 ) )
         return torch.cat( new_embs, dim = 0 )
 
@@ -65,11 +62,10 @@ class GAFM_Base( torch.nn.Module ):
         n_hop = 0
         for df in adj_lists:
             if n_hop == 0:
-                #最外阶的聚合可直接通过初始索引提取
-                entity_embs = self.entitys( torch.LongTensor( df.values ) )
+                entity_embs = self.entitys( torch.LongTensor( df.values ).to(Zcommon.device) )
             else:
                 entity_embs = self.__getEmbeddingByNeibourIndex( df.values, neighborIndexs, aggEmbeddings )
-            target_embs = self.entitys( torch.LongTensor( df.index ) )
+            target_embs = self.entitys( torch.LongTensor( df.index).to(Zcommon.device ) )
             if n_hop < len( adj_lists ):
                 neighborIndexs = pd.DataFrame( range( len( df.index ) ), index = df.index )
             aggEmbeddings = self.FMaggregator(entity_embs )
@@ -78,9 +74,7 @@ class GAFM_Base( torch.nn.Module ):
             aggEmbeddings = atts * aggEmbeddings + target_embs
 
             n_hop +=1
-        # 返回最后的目标节点向量也就是指定代表这一批次的物品向量,形状为 [ batch_size, dim ]
-        #aggEmbeddings = self.w1_liner(aggEmbeddings)
-        #aggEmbeddings = self.w2_liner(aggEmbeddings)
+        # [ batch_size, dim ]
         return aggEmbeddings
 
     def forward( self, u,i ):

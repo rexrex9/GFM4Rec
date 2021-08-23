@@ -50,7 +50,7 @@ class GAFM_Item( torch.nn.Module ):
     def __getEmbeddingByNeibourIndex( self, orginal_indexes, nbIndexs, aggEmbeddings ):
         new_embs = []
         for v in orginal_indexes:
-            embs = aggEmbeddings[ torch.squeeze( torch.LongTensor( nbIndexs.loc[v].values ) ) ]
+            embs = aggEmbeddings[ torch.squeeze( torch.LongTensor( nbIndexs.loc[v].values ).to(Zcommon.device) ) ]
             new_embs.append( torch.unsqueeze( embs, dim = 0 ) )
         return torch.cat( new_embs, dim = 0 )
 
@@ -58,11 +58,10 @@ class GAFM_Item( torch.nn.Module ):
         n_hop = 0
         for df in adj_lists:
             if n_hop == 0:
-                #最外阶的聚合可直接通过初始索引提取
-                entity_embs = self.entitys( torch.LongTensor( df.values ) )
+                entity_embs = self.entitys(torch.LongTensor(df.values).to(Zcommon.device))
             else:
-                entity_embs = self.__getEmbeddingByNeibourIndex( df.values, neighborIndexs, aggEmbeddings )
-            target_embs = self.entitys( torch.LongTensor( df.index ) )
+                entity_embs = self.__getEmbeddingByNeibourIndex(df.values, neighborIndexs, aggEmbeddings)
+            target_embs = self.entitys(torch.LongTensor(df.index).to(Zcommon.device))
             if n_hop < len( adj_lists ):
                 neighborIndexs = pd.DataFrame( range( len( df.index ) ), index = df.index )
             aggEmbeddings = self.FMaggregator(entity_embs )
