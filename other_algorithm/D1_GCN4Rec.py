@@ -15,7 +15,7 @@ class GCN4Rec( torch.nn.Module ):
         self.users = nn.Embedding( n_users, dim,max_norm=1)
         self.item_features = nn.Embedding( n_item_features, dim,max_norm=1)
 
-        self.all_item_indices = torch.LongTensor( range( n_item_features ) )
+        self.all_item_indices = torch.LongTensor( range( n_item_features ) ).to(Zcommon.device)
 
         self.i_conv1 = GCNConv( dim, hidden_dim )
         self.i_conv2 = GCNConv( hidden_dim, dim )
@@ -24,7 +24,7 @@ class GCN4Rec( torch.nn.Module ):
 
     def gnnForwardItem( self, e, edges):
         # [ n_entitys, dim ]
-        x = self.item_features( self.all_item_indices.to(Zcommon.device) )
+        x = self.item_features( self.all_item_indices )
         # [ n_entitys, hidden_dim ]
         x = F.dropout(  F.relu( self.i_conv1( x, edges ) ) )
         # [ n_entitys, dim ]
@@ -34,7 +34,7 @@ class GCN4Rec( torch.nn.Module ):
 
     def forward( self, u, i ):
         i_index = i.cpu().detach().numpy()
-        i_edges = dataloader.graphSage4Rec(self.G, i_index)
+        i_edges = dataloader.graphSage4Rec(self.G, i_index).to(Zcommon.device)
 
         # [ batch_size, dim ]
         users = self.users( u )
