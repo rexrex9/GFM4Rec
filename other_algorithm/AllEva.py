@@ -2,7 +2,7 @@ from data_set import filepaths as fp
 from dataloader import dataloader
 import os
 import torch
-import Zcommon
+from other_algorithm import Zcommon
 from tqdm import tqdm
 #datas = ['mlLatest','ml1m','Bx']
 datas = ['ml1m','ml10m']
