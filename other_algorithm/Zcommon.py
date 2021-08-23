@@ -17,6 +17,10 @@ def doEva(net, test_set, batchSize):
     #ll = 0
     #y_preds,y_trues = [],[]
     for u, i, r in DataLoader(test_set, batch_size=batchSize, shuffle=False,drop_last=True):
+        u.to(device)
+        i.to(device)
+        r.to(device)
+
         y_pred = net(u, i)
         y_true = r.detach().numpy()
 
