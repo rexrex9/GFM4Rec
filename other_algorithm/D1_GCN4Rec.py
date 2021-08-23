@@ -1,12 +1,11 @@
-from torch.utils.data import DataLoader
+
 from dataloader import dataloader
-from tqdm import tqdm
 import torch
 from torch import nn
 import torch.nn.functional as F
 from torch_geometric.nn import GCNConv
 from data_set import filepaths as fp
-import Zcommon
+from other_algorithm import Zcommon
 
 class GCN4Rec( torch.nn.Module ):
 

@@ -1,4 +1,4 @@
-import Zcommon
+from other_algorithm import Zcommon
 from dataloader import dataloader
 import torch
 from torch import nn

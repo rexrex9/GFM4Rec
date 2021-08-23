@@ -1,11 +1,9 @@
 import pandas as pd
-from torch.utils.data import DataLoader
 from dataloader import dataloader
-from tqdm import tqdm
 import torch
 from torch import nn
 from data_set import filepaths as fp
-import Zcommon
+from other_algorithm import Zcommon
 
 
 class GAT4Rec( torch.nn.Module ):

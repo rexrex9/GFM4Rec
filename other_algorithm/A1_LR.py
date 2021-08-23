@@ -1,11 +1,10 @@
-import os
+
 from dataloader import dataloader
 from data_set import filepaths as fp
-from torch.utils.data import DataLoader
 from torch import nn
 import torch
 from other_algorithm import Zcommon
-from tqdm import tqdm
+
 
 class LR( nn.Module ):
     def __init__( self, n_users, item_df, dim  ):

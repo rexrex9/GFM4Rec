@@ -1,7 +1,5 @@
 import pandas as pd
-from torch.utils.data import DataLoader
 from dataloader import dataloader
-from tqdm import tqdm
 import torch
 from torch import nn
 from data_set import filepaths as fp
@@ -91,7 +89,7 @@ class GAFM_User( torch.nn.Module ):
         return logit
 
 
-def train(data_set_name,epochs=20,batchSize=1024,k_dim=128,t_dim=64,lr=0.002,need_eva=True):
+def train(data_set_name,epochs=20,batchSize=1024,k_dim=128,t_dim=64,lr=0.001,need_eva=True):
     user_set, item_set, train_set, test_set = dataloader.readRecData(fp.DataSet_Dict[data_set_name].RATING)
     item_graph_pairs = dataloader.readGraphData(fp.DataSet_Dict[data_set_name].ITEM_GRAPH)
     G = dataloader.get_graph( item_graph_pairs )
