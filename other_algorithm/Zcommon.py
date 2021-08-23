@@ -21,7 +21,7 @@ def doEva(net, test_set, batchSize):
         #r = r.to( device )
         y_pred = net( u, i )
         y_true = r.cpu().detach().numpy()
-
+        y_pred = y_pred.cpu().detach().numpy()
         # y_pred4ll = torch.cat([torch.unsqueeze(1-y_pred, 1), torch.unsqueeze(y_pred, 1)], dim=1).detach().numpy()
         # ll +=log_loss(y_true,y_pred4ll)
 
