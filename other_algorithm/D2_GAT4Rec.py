@@ -52,6 +52,27 @@ class GAT4Rec( torch.nn.Module ):
         # 将每次单头注意力层得到的输出张量拼接后输出
         return torch.cat( embs, dim=-1 )
 
+    # 根据上一轮聚合的输出向量，原始索引与记录原始索引与更新后索引的映射表得到这一阶的输入邻居节点向量
+    def __getEmbeddingByNeibourIndex( self, orginal_indexes, nbIndexs, aggEmbeddings ):
+        new_embs = []
+        for v in orginal_indexes:
+            embs = aggEmbeddings[ torch.squeeze( torch.LongTensor( nbIndexs.loc[v].values ).to(Zcommon.device) ) ]
+            new_embs.append( torch.unsqueeze( embs, dim = 0 ) )
+        return torch.cat( new_embs, dim = 0 )
+
+    def gnnForward( self, adj_lists ):
+        n_hop = 0
+        for df in adj_lists:
+            if n_hop == 0:
+                entity_embs = self.entitys( torch.LongTensor( df.values ).to(Zcommon.device) )
+            else:
+                entity_embs = self.__getEmbeddingByNeibourIndex( df.values, neighborIndexs, aggEmbeddings )
+            target_embs = self.entitys( torch.LongTensor( df.index).to(Zcommon.device ) )
+            if n_hop < len( adj_lists ):
+                neighborIndexs = pd.DataFrame( range( len( df.index ) ), index = df.index )
+            aggEmbeddings = self.multiHeadAttentionAggregator( target_embs, entity_embs )
+        # 返回最后的目标节点向量也就是指定代表这一批次的物品向量,形状为 [ batch_size, dim ]
+        return aggEmbeddings
 
     def forward( self, u,i ):
         i_index = i.cpu().detach().numpy()
