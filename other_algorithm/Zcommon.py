@@ -17,10 +17,9 @@ def doEva(net, test_set, batchSize):
     #ll = 0
     #y_preds,y_trues = [],[]
     for u, i, r in DataLoader(test_set, batch_size=batchSize, shuffle=False,drop_last=True):
-        u.to(device)
-        i.to(device)
-        r.to(device)
-
+        u = u.to(device)
+        i = i.to(device)
+        r = r.to(device)
         y_pred = net(u, i)
         y_true = r.detach().numpy()
 
@@ -52,9 +51,9 @@ def commonTrain(epochs,net,optimizer,criterion,train_set,test_set,batchSize,need
         for u, i, r in tqdm(DataLoader(train_set, batch_size=batchSize, shuffle=True)):
             optimizer.zero_grad()
             r = torch.FloatTensor(r.detach().numpy())
-            u.to( device )
-            i.to( device )
-            r.to( device )
+            u = u.to( device )
+            i = i.to( device )
+            r = r.to( device )
             logits = net(u, i)
             loss = criterion(logits, r)
             all_lose += loss
