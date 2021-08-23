@@ -24,7 +24,7 @@ class GCN4Rec( torch.nn.Module ):
 
     def gnnForwardItem( self, e, edges):
         # [ n_entitys, dim ]
-        x = self.item_features( self.all_item_indices )
+        x = self.item_features( self.all_item_indices.to(Zcommon.device) )
         # [ n_entitys, hidden_dim ]
         x = F.dropout(  F.relu( self.i_conv1( x, edges ) ) )
         # [ n_entitys, dim ]
