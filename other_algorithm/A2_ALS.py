@@ -12,6 +12,7 @@ class ALS (nn.Module):
 
 
     def forward(self, u, v):
+        print(u.device)
         u = self.users(u)
         v = self.items(v)
         uv = torch.sum( u*v, dim = 1)
