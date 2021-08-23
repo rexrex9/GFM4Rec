@@ -5,7 +5,7 @@ import torch
 import Zcommon
 from tqdm import tqdm
 #datas = ['mlLatest','ml1m','Bx']
-datas = ['mlLatest','ml1m']
+datas = ['ml1m','ml10m']
 
 model_dir = fp.Model.T2
 report_path =fp.Report.T2EVA
