@@ -19,18 +19,18 @@ def doEva(net, test_set, batchSize):
     for u, i, r in DataLoader(test_set, batch_size=batchSize, shuffle=False,drop_last=True):
         u = u.to(device)
         i = i.to(device)
-
+        r = r.to(device)
         y_pred = net(u, i)
-        y_true = r.detach().numpy()
+        #y_true = r.detach().numpy()
 
         # y_pred4ll = torch.cat([torch.unsqueeze(1-y_pred, 1), torch.unsqueeze(y_pred, 1)], dim=1).detach().numpy()
         # ll +=log_loss(y_true,y_pred4ll)
 
         #y_trues.append(y_true.tolist())
         #y_preds.append(y_pred.detach().numpy().tolist())
-        auc += roc_auc_score(y_true, y_pred)
+        auc += roc_auc_score(r, y_pred)
         y_pred = np.array([1 if i >= 0.5 else 0 for i in y_pred])
-        f1 += f1_score(y_true, y_pred)
+        f1 += f1_score(r, y_pred)
 
     counts = len(test_set) // batchSize
     auc /= counts
