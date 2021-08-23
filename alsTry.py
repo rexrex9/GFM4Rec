@@ -1,5 +1,5 @@
-from other_algorithm import A2_ALS
+from other_algorithm import C2_Deep_FM
 
 
 
-A2_ALS.train('mlLatest')
+C2_Deep_FM.train('mlLatest')

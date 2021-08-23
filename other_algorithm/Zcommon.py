@@ -49,7 +49,7 @@ def commonTrain(epochs,net,optimizer,criterion,train_set,test_set,batchSize,need
         all_lose = 0
         for u, i, r in tqdm(DataLoader(train_set, batch_size=batchSize, shuffle=True)):
             optimizer.zero_grad()
-            r = torch.FloatTensor(r.detach().numpy())
+            r = torch.FloatTensor(r.cpu().detach().numpy())
             u = u.to( device )
             i = i.to( device )
             r = r.to( device )
