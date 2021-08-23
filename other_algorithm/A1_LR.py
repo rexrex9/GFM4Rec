@@ -14,11 +14,12 @@ class LR( nn.Module ):
         self.users = nn.Embedding(n_users, dim, max_norm=1)
         self.item_features = nn.Embedding(item_df.values.max() + 1, dim, max_norm=1)
 
-    def __getAllFeatures( self,u, i ):
-        item_feature_indexes = torch.LongTensor( self.item_df.loc[i].values )
-        user_feats = torch.unsqueeze(self.users( u ),dim=1)
-        item_feats = self.item_features(item_feature_indexes).to(Zcommon.device)
-        all = torch.cat( [ user_feats, item_feats ], dim = 1 )
+    # forFMseries
+    def getAllFeatures(self, u, i):
+        item_feature_indexes = torch.LongTensor(self.item_df.loc[i.cpu()].values).to(Zcommon.device)
+        user_feats = torch.unsqueeze(self.users(u), dim=1)
+        item_feats = self.item_features(item_feature_indexes)
+        all = torch.cat([user_feats, item_feats], dim=1)
         # [batch_size, n_features, dim]
         return all
 

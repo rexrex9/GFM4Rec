@@ -1,5 +1,5 @@
-from other_algorithm import C2_Deep_FM
+from other_algorithm import D2_GAT4Rec
 
 
 
-C2_Deep_FM.train('mlLatest')
+D2_GAT4Rec.train('mlLatest')

@@ -68,7 +68,7 @@ class GAT4Rec( torch.nn.Module ):
                 entity_embs = self.entitys( torch.LongTensor( df.values ).to(Zcommon.device) )
             else:
                 entity_embs = self.__getEmbeddingByNeibourIndex( df.values, neighborIndexs, aggEmbeddings )
-            target_embs = self.entitys( torch.LongTensor( df.index.to(Zcommon.device) ) )
+            target_embs = self.entitys( torch.LongTensor( df.index).to(Zcommon.device ) )
             if n_hop < len( adj_lists ):
                 neighborIndexs = pd.DataFrame( range( len( df.index ) ), index = df.index )
             # 将得到的目标节点向量与其邻居节点向量传入GAT的多头注意力层聚合出更新后的目标节点向量
@@ -78,7 +78,7 @@ class GAT4Rec( torch.nn.Module ):
         return aggEmbeddings
 
     def forward( self, u,i ):
-        i_index = i.detach().numpy()
+        i_index = i.cpu().detach().numpy()
         i_edges = dataloader.graphSage4RecAdjType(self.G, i_index)
         # [batch_size, dim]
         items = self.gnnForward( i_edges )
