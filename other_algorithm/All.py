@@ -4,7 +4,7 @@ from other_algorithm import A1_LR, A2_ALS, B1_FM, B2_AFM, C1_FNN, C2_Deep_FM, D2
 
 #datas = ['mlLatest','ml1m','Bx']
 datas = [ 'ml1m', 'ml10m' ]
-Models = [ GAFM_base, GAFM_item, GAFM_user ]
+Models = [ GAFM_item, GAFM_user,GAFM_base ]
 
 #Models = [D1_GCN4Rec,D2_GAT4Rec]
 
