@@ -75,7 +75,7 @@ class GAFM_User( torch.nn.Module ):
         return aggEmbeddings
 
     def forward( self, u,i ):
-        i_index = i.detach().numpy()
+        i_index = i.cpu().detach().numpy()
         adj_lists = dataloader.graphSage4RecAdjType(self.G, i_index)
         # [batch_size, dim]
         users = self.users(u)

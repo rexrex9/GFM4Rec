@@ -73,7 +73,7 @@ class GAFM_Item( torch.nn.Module ):
         return aggEmbeddings
 
     def forward( self, u,i ):
-        i_index = i.detach().numpy()
+        i_index = i.cpu().detach().numpy()
         adj_lists = dataloader.graphSage4RecAdjType(self.G, i_index)
         # [batch_size, dim]
         items = self.gnnForward( adj_lists )
