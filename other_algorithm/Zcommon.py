@@ -10,6 +10,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 @torch.no_grad()
 def doEva(net, test_set, batchSize):
+    net.to(device)
     net.eval()
     auc= 0
     f1 = 0
