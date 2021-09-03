@@ -12,7 +12,6 @@ class ALS (nn.Module):
 
 
     def forward(self, u, v):
-
         u = self.users(u)
         v = self.items(v)
         uv = torch.sum( u*v, dim = 1)
@@ -34,5 +33,3 @@ def train( data_set_name,epochs = 10, batchSize = 1024, lr = 0.01, dim = 32, nee
 
 if __name__ == '__main__':
     train('mlLatest')
-
-    #0.69

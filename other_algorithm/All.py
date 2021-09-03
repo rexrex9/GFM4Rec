@@ -4,15 +4,16 @@ from other_algorithm import A1_LR, A2_ALS, B1_FM, B2_AFM, C1_FNN, C2_Deep_FM, D2
 
 #datas = ['mlLatest','ml1m','Bx']
 datas = ['ml10m' ]
-Models = [ GAFM_base ]
+Models = [ GAFM_user ]
 
 #Models = [D1_GCN4Rec,D2_GAT4Rec]
 
 def doOne( Model ):
     print( Model )
     for d in datas:
+        batch = 20480 if d=='ml10m' else 1024
         print( d )
-        Model.train( d, epochs = 10, need_eva = False )
+        Model.train( d, epochs = 10, batchSize=batch, need_eva = False )
 
 def do( ):
     for one in Models:

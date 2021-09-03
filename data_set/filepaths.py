@@ -53,11 +53,13 @@ class Model( ):
     T0 = os.path.join(BASE, 't0')
     T1 = os.path.join(BASE, 't1')
     T2 = os.path.join(BASE, 't2')
+    T3 = os.path.join(BASE, 't3')
 
 class Report():
     BASE = os.path.join(ROOT, 'report')
-    T1EVA = os.path.join(BASE,'t1_eva.tsv')
-    T2EVA = os.path.join(BASE,'t2_eva.tsv')
+    T1EVA = os.path.join(BASE, 't1_eva.tsv')
+    T2EVA = os.path.join(BASE, 't2_eva.tsv')
+    T3EVA = os.path.join(BASE, 't3_eva.tsv')
 
 DataSet_Dict = {
     'mlLatest':Ml_latest,
