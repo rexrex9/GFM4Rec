@@ -7,8 +7,8 @@ from tqdm import tqdm
 #datas = ['mlLatest','ml1m','Bx']
 #datas = ['ml1m','ml10m','mlLatest']
 datas = ['ml10m']
-model_dir = fp.Model.T3
-report_path =fp.Report.T3EVA
+model_dir = fp.Model.T4
+report_path =fp.Report.T4EVA
 
 def readTestData():
     print('读取数据')

@@ -82,7 +82,7 @@ def showEva(net, train_set, test_set, batchSize):
 
 
 def saveModel(net,net_name,data_set_name):
-    torch.save(net, os.path.join(fp.Model.T3, '{}_{}.model'.format(net_name,data_set_name)))
+    torch.save(net, os.path.join(fp.Model.T4, '{}_{}.model'.format(net_name,data_set_name)))
 
 
 
