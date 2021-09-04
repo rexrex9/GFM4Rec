@@ -5,10 +5,10 @@ import torch
 from other_algorithm import Zcommon
 from tqdm import tqdm
 #datas = ['mlLatest','ml1m','Bx']
-datas = ['ml1m','ml10m','mlLatest']
-
+#datas = ['ml1m','ml10m','mlLatest']
+datas = ['ml10m']
 model_dir = fp.Model.T3
-report_path =fp.Report.T4EVA
+report_path =fp.Report.T3EVA
 
 def readTestData():
     print('读取数据')
