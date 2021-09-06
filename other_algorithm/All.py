@@ -1,13 +1,13 @@
 from major import GAFM_user,GAFM_base,GAFM_item
-from other_algorithm import A1_LR, A2_ALS, B1_FM, B2_AFM, C1_FNN, C2_Deep_FM, D2_GAT4Rec
+from other_algorithm import A1_LR, A2_ALS, B1_FM, B2_AFM, C1_FNN, C2_Deep_FM, D2_GAT4Rec,D1_GCN4Rec
 
 
 #datas = ['mlLatest','ml1m','Bx']
 datas = ['ml10m' ]
 #Models = [ GAFM_user ]
+#Models = [A1_LR, A2_ALS, B1_FM, B2_AFM, C1_FNN, C2_Deep_FM, D2_GAT4Rec, GAFM_base,GAFM_item,D1_GCN4Rec]
 
-Models = [A1_LR, A2_ALS, B1_FM, B2_AFM, C1_FNN, C2_Deep_FM, D2_GAT4Rec, GAFM_base,GAFM_item]
-
+Models = [ D1_GCN4Rec]
 def doOne( Model ):
     print( Model )
     for d in datas:
